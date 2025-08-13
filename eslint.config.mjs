@@ -57,7 +57,6 @@ export default defineConfig([{
         indent: ["warn", 2],
         semi: ['error', 'never'],
         quotes: ["warn", "single"],
-        "no-console": "warn",
         "no-multi-spaces": "error",
         "comma-dangle": "off",
         "require-jsdoc": "off"
