@@ -7,6 +7,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
+  import babelParser from "@babel/eslint-parser";
+  
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,7 +38,7 @@ export default defineConfig([{
 
         ecmaVersion: 2020,
         sourceType: "module",
-
+parser: babelParser,
         parserOptions: {
             ecmaFeatures: {
                 jsx: true,
@@ -59,6 +61,7 @@ export default defineConfig([{
         quotes: ["warn", "single"],
         "no-multi-spaces": "error",
         "comma-dangle": "off",
-        "require-jsdoc": "off"
+        "require-jsdoc": "off",
+        "operator-linebreak": "off"
     },
 }]);

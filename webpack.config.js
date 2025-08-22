@@ -4,7 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
-
+//plugin-transform-class-properties
 module.exports = (env, argv) => {
 
   const isProd = argv.mode === 'production'
@@ -15,6 +15,20 @@ module.exports = (env, argv) => {
 
   const filename = ext => 
     isProd ? `[name].[contenthash].bundle.${ext}` : `[name].bundle.${ext}`
+
+  const jsLoaders = () => {
+    const loaders = [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
+          plugins: ['@babel/plugin-transform-class-properties']
+        }
+      }
+    ]
+
+    return loaders
+  }
 
   const plugins = () => {
     const base = [
@@ -35,9 +49,6 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
     ]
 
-    if(isDev) {
-      base.push(new ESLintPlugin())
-    }
 
     return base
 
@@ -86,14 +97,9 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.m?js$/,
+          test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
-          }
+          use: jsLoaders()
         }
       ],
     },
