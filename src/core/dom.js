@@ -1,62 +1,80 @@
 class Dom {
-   constructor(selector) {
+  constructor(selector) {
 
     this.$$listeners = {}
 
     // #app
     this.$el = typeof selector === 'string' 
-    ? document.querySelector(selector)
-    : selector
-   }
-   html(html) {
+      ? document.querySelector(selector)
+      : selector
+  }
+  html(html) {
     if(typeof html === 'string') {
-        this.$el.innerHTML = html
-        return this
+      this.$el.innerHTML = html
+      return this
     }
     return this.$el.outerHTML.trim()
-   }
+  }
 
-   clear() {
+  clear() {
     this.html('')
     return this
-   }
+  }
 
-   on(eventType, callBack) {
-    // this.$$listeners[eventType] = callback
+  on(eventType, callBack) {
     this.$el.addEventListener(eventType, callBack)
-   }
+  }
 
-   off(eventType, callback) {
-         this.$el.removeEventListener(eventType, callback)
-   }
+  off(eventType, callback) {
+    this.$el.removeEventListener(eventType, callback)
+  }
 
-   //element
-   append(node) {
+  append(node) {
     if(node instanceof Dom) {
-        node = node.$el
+      node = node.$el
     }
 
     if(Element.prototype.append) {
-        this.$el.append(node)
+      this.$el.append(node)
     } else {
-        this.$el.appendChild(node)
+      this.$el.appendChild(node)
     }
-        return this
+    return this
     
-   }
+  }
+
+  get data() {
+    return this.$el.dataset
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  css(styles ={}) {
+    Object
+      .keys(styles)
+      .forEach(key => this.$el.style[key] = styles[key])
+  }
 }
 
-
-// event.target
 export function $(selector) {
-    return new Dom(selector)
+  return new Dom(selector)
 }
 
 $.create = (tagName, classes = '') => {
-    const el = document.createElement(tagName)
+  const el = document.createElement(tagName)
 
-    if(classes) {
-        el.classList.add(classes)
-    }
-    return $(el)
+  if(classes) {
+    el.classList.add(classes)
+  }
+  return $(el)
 }
