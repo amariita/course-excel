@@ -1,9 +1,10 @@
 const path = require('path')
+// const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
+// const ESLintPlugin = require('eslint-webpack-plugin')
 module.exports = (env, argv) => {
 
   const isProd = argv.mode === 'production'
@@ -46,6 +47,9 @@ module.exports = (env, argv) => {
         filename: filename('css')
       }),
       new CleanWebpackPlugin(),
+      // new webpack.DefinePlugin({
+      //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      // })
     ]
 
 

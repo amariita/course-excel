@@ -36,7 +36,7 @@ export class Table extends ExcelComponent {
       
       this.selection.current.attr('data-value', value)
       this.selection.current.text(parse(value))
-       this.updateTextInStore(value)
+      this.updateTextInStore(value)
     })
 
     this.$on('formula:done', () => {
@@ -75,7 +75,7 @@ export class Table extends ExcelComponent {
       const $target = $(event.target)
       if (event.shiftKey) {
         const $cells = matrix($target, this.selection.current)
-            .map(id => this.$root.find(`[data-id="${id}"]`))
+          .map(id => this.$root.find(`[data-id="${id}"]`))
         this.selection.selectGroup($cells)
       } else {
         this.selectCell($target)
