@@ -28,6 +28,7 @@ export default defineConfig([{
     plugins: {
         react: fixupPluginRules(react),
         "react-hooks": fixupPluginRules(reactHooks),
+        jest: pluginJest
     },
 
     languageOptions: {
@@ -43,6 +44,9 @@ parser: babelParser,
             ecmaFeatures: {
                 jsx: true,
             },
+        },
+        "env": {
+            "jest/globals": true
         },
     },
 
@@ -62,6 +66,12 @@ parser: babelParser,
         "no-multi-spaces": "error",
         "comma-dangle": "off",
         "require-jsdoc": "off",
-        "operator-linebreak": "off"
+        "operator-linebreak": "off",
+
+        // "jest/no-disabled-tests": "warn",
+        // "jest/no-focused-tests": "error",
+        // "jest/no-identical-title": "error",
+        // "jest/prefer-to-have-length": "warn",
+        // "jest/valid-expect": "error"
     },
 }]);
